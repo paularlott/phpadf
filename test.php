@@ -15,6 +15,7 @@ require_once 'lib/flStrideBulletList.php';
 require_once 'lib/flStrideOrderedList.php';
 require_once 'lib/flStrideHeading.php';
 require_once 'lib/flStridePanel.php';
+require_once 'lib/flStrideRule.php';
 
 
 $doc = new flStrideDocument();
@@ -30,7 +31,8 @@ $doc->paragraph()
 	->hardBreak()
 	->text('next line');
 
-$doc->paragraph()
+$doc->rule()
+	->paragraph()
 	->text('next paragraph')
 	->text(' this is red', (new flStrideMarks())->textColor('#ff0000'))
 	->text(' subscript', (new flStrideMarks())->sub())

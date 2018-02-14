@@ -115,4 +115,14 @@ class flStrideDocument {
 	function panel($type) {
 		return $this->nodes[] = new flStridePanel($type);
 	}
+
+	/**
+	 * Add a rule.
+	 *
+	 * @return flStrideDocument
+	 */
+	function rule() {
+		$this->nodes[] = new flStrideRule();
+		return $this;
+	}
 }
