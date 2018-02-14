@@ -20,27 +20,13 @@
 class flStrideBlockquote extends flStrideNode {
 
 	/**
-	 * Array of nodes that make up the document.
-	 *
-	 * @var flStrideNode[]
-	 */
-	protected $nodes = [];
-
-	/**
 	 * @inheritdoc
 	 */
 	function toJSON() {
-		$quote = [
+		return [
 			'type'    => 'blockquote',
-			'content' => []
+			'content' => parent::toJSON()
 		];
-
-		// Add the content
-		foreach($this->nodes as $node) {
-			$quote['content'][] = $node->toJSON();
-		}
-
-		return $quote;
 	}
 
 	/**

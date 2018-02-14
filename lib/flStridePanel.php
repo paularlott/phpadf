@@ -11,20 +11,37 @@
  */
 
 /**
- * flStrideDocument Class
+ * flStridePanel Class
  *
- * Class to define a stride document.
+ * Class to define a stride panel.
  *
  * @package fusionLib
  */
-class flStrideDocument {
+class flStridePanel extends flStrideNode {
+
+	/**#@+
+	 * Transfer method.
+	 */
+	const INFO = 'info';
+	const NOTE = 'note';
+	const TIP = 'tip';
+	const WARNING = 'warning';
+	/**#@-*/
 
 	/**
-	 * Array of nodes that make up the document.
+	 * The panel type.
 	 *
-	 * @var flStrideNode[]
+	 * @var string
 	 */
-	protected $nodes = [];
+	protected $type;
+
+	/**
+	 * flStridePanel constructor.
+	 * @param string $type The panel type.
+	 */
+	function __construct($type) {
+		$this->type = $type;
+	}
 
 	/**
 	 * Convert the document to an array.
@@ -32,20 +49,13 @@ class flStrideDocument {
 	 * @return array The JSON representation of the document.
 	 */
 	function toJSON() {
-
-		// Define the document
-		$document = [
-			'type'    => 'doc',
-			'version' => 1,
-			'content' => []
+		return [
+			'type'    => 'panel',
+			'attrs'   => [
+				'panelType' => $this->type
+			],
+			'content' => parent::toJSON()
 		];
-
-		// Add the content
-		foreach($this->nodes as $node) {
-			$document['content'][] = $node->toJSON();
-		}
-
-		return $document;
 	}
 
 	/**
@@ -55,25 +65,6 @@ class flStrideDocument {
 	 */
 	function paragraph() {
 		return $this->nodes[] = new flStrideParagraph();
-	}
-
-	/**
-	 * Create a new code block.
-	 *
-	 * @param string $language The language for the code block.
-	 * @return flStrideCodeBlock The code block object.
-	 */
-	function codeBlock($language) {
-		return $this->nodes[] = new flStrideCodeBlock($language);
-	}
-
-	/**
-	 * Create a blockquote.
-	 *
-	 * @return flStrideBlockquote The code block object.
-	 */
-	function blockquote() {
-		return $this->nodes[] = new flStrideBlockquote();
 	}
 
 	/**
@@ -104,15 +95,5 @@ class flStrideDocument {
 	 */
 	function heading($number, $text, $marks = null) {
 		return $this->nodes[] = new flStrideHeading($number, $text, $marks);
-	}
-
-	/**
-	 * Create a panel.
-	 *
-	 * @param string $type The panel type.
-	 * @return flStridePanel
-	 */
-	function panel($type) {
-		return $this->nodes[] = new flStridePanel($type);
 	}
 }

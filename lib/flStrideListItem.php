@@ -11,31 +11,30 @@
  */
 
 /**
- * flStrideNode Class
+ * flStrideListItem Class
  *
- * Base class for stride nodes.
+ * Class to define a listItem node.
  *
  * @package fusionLib
  */
-abstract class flStrideNode {
+class flStrideListItem extends flStrideNode {
 
 	/**
-	 * Array of child nodes.
-	 *
-	 * @var flStrideNode[]
-	 */
-	protected $nodes = [];
-
-	/**
-	 * Convert the node to ADF JSON.
-	 *
-	 * @return array
+	 * @inheritdoc
 	 */
 	function toJSON() {
-		$content = [];
-		foreach($this->nodes as $node) {
-			$content[] = $node->toJSON();
-		}
-		return $content;
+		return [
+			'type'    => 'listItem',
+			'content' => parent::toJSON()
+		];
+	}
+
+	/**
+	 * Create a new paragraph.
+	 *
+	 * @return flStrideParagraph The paragraph object.
+	 */
+	function paragraph() {
+		return $this->nodes[] = new flStrideParagraph();
 	}
 }

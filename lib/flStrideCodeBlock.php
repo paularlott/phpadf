@@ -27,13 +27,6 @@ class flStrideCodeBlock extends flStrideNode {
 	protected $language;
 
 	/**
-	 * The content of the paragraph.
-	 *
-	 * @var array
-	 */
-	protected $content = [];
-
-	/**
 	 * flStrideCodeBlock constructor.
 	 * @param string $language The code block language.
 	 */
@@ -50,7 +43,7 @@ class flStrideCodeBlock extends flStrideNode {
 			'attrs'   => [
 				'language' => $this->language
 			],
-			'content' => $this->content
+			'content' => parent::toJSON()
 		];
 	}
 
@@ -61,10 +54,7 @@ class flStrideCodeBlock extends flStrideNode {
 	 * @return flStrideCodeBlock The paragraph object.
 	 */
 	function text($text) {
-		$this->content[] = [
-			'type' => 'text',
-			'text' => $text
-		];
+		$this->nodes[] = new flStrideText($text);
 		return $this;
 	}
 }
