@@ -39,7 +39,7 @@ class flStrideText extends flStrideNode {
 	 * @param flStrideMarks $marks Optional marks.
 	 */
 	function __construct($text, $marks = null) {
-		$this->text = $text;
+		$this->text = (string)$text;
 		$this->marks = $marks;
 	}
 
